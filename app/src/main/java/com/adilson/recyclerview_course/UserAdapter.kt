@@ -6,9 +6,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.adilson.recyclerview_course.databinding.ResItemUserBinding
+import layout.User
 
 class UserAdapter(
-    private val users: List<String>,
+    private val users: List<User>,
     private val onClick: (String) -> Unit
     ) : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
 
@@ -37,7 +38,7 @@ class UserAdapter(
     }
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
-        holder.bind(users[position], onClick)
+        holder.bind(users[position].fullName, onClick)
 
     }
 
