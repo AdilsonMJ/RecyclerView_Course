@@ -1,6 +1,7 @@
 package com.adilson.recyclerview_course
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -20,7 +21,18 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val user = getData()
-        populateData(user) // I can user the lamb because I just have 1 param, but if I have 2 or more I need user this way.
+
+        val adapter  = UserAdapter(user)
+
+        binding.rvUser.adapter = adapter
+
+        binding.fabSelectUsers.setOnClickListener{
+
+            adapter.getSelectedItems().forEach{
+                Log.i("Teste", it.toString())
+            }
+        }
+
 
 
 
@@ -41,12 +53,5 @@ class MainActivity : AppCompatActivity() {
         return user
     }
 
-    private fun populateData(user: MutableList<User>) {
-        binding.rvUser.adapter = UserAdapter(
-            user,
-            {
-                Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
-            }
-        )
-    }
+
 }
