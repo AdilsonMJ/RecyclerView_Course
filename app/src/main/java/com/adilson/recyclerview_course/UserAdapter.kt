@@ -7,14 +7,15 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
 import androidx.core.util.forEach
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.adilson.recyclerview_course.databinding.ResItemUserBinding
 import layout.User
 
-class UserAdapter(
-    private val users: List<User>,
-    ) : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
+class UserAdapter: RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
 
+
+    private var users = emptyList<User>()
     private val userStateArray : SparseBooleanArray = SparseBooleanArray()
 
 
@@ -70,6 +71,18 @@ class UserAdapter(
 
     override fun getItemCount(): Int {
         return users.size
+    }
+
+    fun setData(newList: List<User>){
+        val diffUtil = UserDiffUtil(
+            users,
+            newList
+        )
+
+        val diffResult = DiffUtil.calculateDiff(diffUtil)
+        users = newList
+        diffResult.dispatchUpdatesTo(this)
+
     }
 
 }
